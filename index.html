@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ledger — Switzerland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --red:     #D0021B;   /* Swiss cross red */
+    --red-dk:  #A50015;
+    --cream:   #F7F4EF;
+    --ink:     #1A1A1A;
+    --ink-mid: #3D3D3D;
+    --ink-lt:  #717171;
+    --silver:  #C8C4BC;
+    --snow:    #FFFFFF;
+    --rule:    rgba(0,0,0,0.10);
+    --gold:    #B8A96A;     /* accent — alpine straw */
+    --card-bg: #FFFFFF;
+    --section-alt: #F0EDE7;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+    --font-mono:    'Roboto Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── MASTHEAD ────────────────────────────────────────────── */
+  .masthead {
+    background: var(--snow);
+    border-bottom: 3px solid var(--red);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .masthead-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    gap: 1.5rem;
+  }
+
+  .masthead-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  /* Swiss cross SVG logo */
+  .swiss-cross {
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .swiss-cross::before, .swiss-cross::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 1px;
+  }
+  .swiss-cross::before {
+    width: 7px; height: 21px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .swiss-cross::after {
+    width: 21px; height: 7px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .masthead-title {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .masthead-subtitle {
+    font-size: 0.68rem;
+    font-family: var(--font-mono);
+    color: var(--ink-lt);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  nav {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    padding: 1.25rem 0.85rem;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    font-weight: 500;
+  }
+
+  nav a:hover, nav a.active {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    background: var(--ink);
+    color: var(--snow);
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1600&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.55;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3.5rem;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    max-width: 560px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .hero-flag {
+    position: absolute;
+    right: 2rem;
+    bottom: 2.5rem;
+    width: 72px;
+    height: 72px;
+    background: var(--red);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .hero-flag::before, .hero-flag::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 2px;
+  }
+  .hero-flag::before { width: 14px; height: 42px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .hero-flag::after  { width: 42px; height: 14px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+  /* ── STAT BAR ────────────────────────────────────────────── */
+  .stat-bar {
+    background: var(--red);
+    color: var(--snow);
+    padding: 1.1rem 0;
+  }
+
+  .stat-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* ── SECTIONS ────────────────────────────────────────────── */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section.alt-bg {
+    max-width: 100%;
+    background: var(--section-alt);
+    padding: 5rem 0;
+  }
+
+  .section.alt-bg .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    max-width: 760px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 3.5rem 0;
+  }
+
+  /* ── GRID CARDS ──────────────────────────────────────────── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.75rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+    border-top: 3px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  .card.accent-red { border-top-color: var(--red); }
+  .card.accent-gold { border-top-color: var(--gold); }
+  .card.accent-ink { border-top-color: var(--ink); }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  /* ── DATA TABLE ──────────────────────────────────────────── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--snow);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  .data-table th {
+    background: var(--ink);
+    color: var(--snow);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.2rem;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .data-table td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-mid);
+    vertical-align: top;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #fafaf8; }
+
+  .data-table td:first-child {
+    font-weight: 600;
+    color: var(--ink);
+    width: 38%;
+  }
+
+  /* ── PULL QUOTE ──────────────────────────────────────────── */
+  .pull-quote {
+    border-left: 4px solid var(--red);
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.75rem;
+    background: var(--snow);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pull-quote p {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .pull-quote cite {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-lt);
+    margin-top: 0.6rem;
+    font-style: normal;
+  }
+
+  /* ── TWO-COL LAYOUT ──────────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── HIGHLIGHT BOX ───────────────────────────────────────── */
+  .highlight-box {
+    background: var(--red);
+    color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .highlight-box h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .highlight-box p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.92;
+  }
+
+  /* ── INSIGHT TAG ─────────────────────────────────────────── */
+  .insight {
+    display: inline-block;
+    background: rgba(208, 2, 27, 0.08);
+    border: 1px solid rgba(208, 2, 27, 0.2);
+    color: var(--red-dk);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+
+  /* ── INFO LIST ───────────────────────────────────────────── */
+  .info-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .info-list li {
+    display: flex;
+    gap: 0.85rem;
+    font-size: 0.92rem;
+    color: var(--ink-mid);
+    line-height: 1.55;
+  }
+
+  .info-list li::before {
+    content: '—';
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* ── TRADE AGREEMENTS ────────────────────────────────────── */
+  .agreement-card {
+    background: var(--snow);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    margin-bottom: 1rem;
+  }
+
+  .agreement-card h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .agreement-card p {
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  /* ── DO/DON'T GRID ───────────────────────────────────────── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 700px) { .do-dont { grid-template-columns: 1fr; } }
+
+  .do-box, .dont-box {
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .do-box { background: #F0F7F0; border-top: 3px solid #2E7D32; }
+  .dont-box { background: #FDF2F2; border-top: 3px solid var(--red); }
+
+  .do-box h4 { color: #2E7D32; font-size: 0.78rem; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .dont-box h4 { color: var(--red); font-size: 0.78rem; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+
+  .do-box ul, .dont-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .do-box li, .dont-box li { font-size: 0.88rem; color: var(--ink-mid); padding-left: 1.25rem; position: relative; line-height: 1.5; }
+  .do-box li::before { content: '✓'; position: absolute; left: 0; color: #2E7D32; font-weight: 700; }
+  .dont-box li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+  /* ── IMAGE STRIP ─────────────────────────────────────────── */
+  .img-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .img-strip img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .img-strip img:hover { opacity: 0.9; }
+
+  @media (max-width: 700px) { .img-strip { grid-template-columns: 1fr; } }
+
+  /* ── PHOTO CAPTION ───────────────────────────────────────── */
+  .photo-wrapper {
+    margin: 2rem 0;
+  }
+
+  .photo-wrapper img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+  }
+
+  .photo-cap {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-lt);
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── SOURCE LINK ─────────────────────────────────────────── */
+  a.src-link {
+    color: var(--red);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    transition: border-color 0.15s;
+  }
+
+  a.src-link:hover { border-bottom-color: var(--red); }
+
+  /* ── SOURCES PANEL ───────────────────────────────────────── */
+  .sources-panel {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 3rem 0;
+    margin-top: 0;
+  }
+
+  .sources-panel .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .sources-panel h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--snow);
+    margin-bottom: 1.5rem;
+  }
+
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .source-item {
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+  }
+
+  .source-item .src-cat {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .source-item a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    display: block;
+  }
+  .source-item a:hover { color: white; text-decoration: underline; }
+
+  /* ── AUTHOR SECTION ──────────────────────────────────────── */
+  .author-section {
+    background: var(--snow);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .author-avatar {
+    width: 80px;
+    height: 80px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .author-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .author-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    color: var(--ink-lt);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .author-info p {
+    font-size: 0.92rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 600px) {
+    .author-section { flex-direction: column; }
+    nav a { padding: 1rem 0.6rem; font-size: 0.6rem; }
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    background: #111;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--red); }
+
+  /* ── TABS ────────────────────────────────────────────────── */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 2rem;
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-lt);
+    padding: 0.75rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .tab-btn.active, .tab-btn:hover {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── BADGES ──────────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    font-weight: 500;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  .badge.gold { background: var(--gold); color: var(--ink); }
+
+  /* ── SCROLLSPY ───────────────────────────────────────────── */
+  section { scroll-margin-top: 70px; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .card-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .stat-bar-inner { grid-template-columns: repeat(3, 1fr); }
+    .hero { min-height: 360px; }
+    .hero h1 { font-size: 2.2rem; }
+  }
+
+  /* ── COLLAPSIBLE ─────────────────────────────────────────── */
+  .collapsible {
+    background: var(--snow);
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: background 0.15s;
+  }
+
+  .collapsible-header:hover { background: #fafaf8; }
+
+  .collapsible-arrow {
+    font-size: 0.75rem;
+    color: var(--red);
+    transition: transform 0.2s;
+  }
+
+  .collapsible-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+
+  .collapsible.open .collapsible-body { display: block; }
+  .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
+
+  /* Progress bar for trade balance */
+  .trade-bar-wrap {
+    margin: 1.5rem 0;
+  }
+  .trade-bar-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-lt);
+    margin-bottom: 0.4rem;
+  }
+  .trade-bar-outer {
+    background: #e8e4dc;
+    border-radius: 4px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .trade-bar-inner {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--red);
+  }
+  .trade-bar-val {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-mid);
+    margin-top: 0.3rem;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── MASTHEAD ────────────────────────────────────────────── -->
+<header class="masthead" id="top">
+  <div class="masthead-inner">
+    <a class="masthead-brand" href="#top">
+      <div class="swiss-cross"></div>
+      <div>
+        <div class="masthead-title">The Ledger</div>
+        <div class="masthead-subtitle">Switzerland Trade Report · BBB4M · 2026</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#country">Country</a>
+      <a href="#economy">Economy</a>
+      <a href="#trade">Trade</a>
+      <a href="#business">Doing Business</a>
+      <a href="#ethics">Ethics</a>
+      <a href="#author">Author</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Doing Business in Switzerland — A Trade Intelligence Report</div>
+    <h1>The Swiss<br>Opportunity</h1>
+    <p>A comprehensive briefing for Canadian businesses and government leaders considering Switzerland as a destination for trade, investment, and expansion.</p>
+  </div>
+  <div class="hero-flag"></div>
+</div>
+
+<!-- ── STAT BAR ────────────────────────────────────────────── -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="stat-item">
+      <span class="stat-num">$1.06T</span>
+      <span class="stat-lbl">GDP (2025)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">#1</span>
+      <span class="stat-lbl">HDI Globally</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">9.05M</span>
+      <span class="stat-lbl">Population</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">0.6%</span>
+      <span class="stat-lbl">Inflation</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">$68B</span>
+      <span class="stat-lbl">Trade Surplus</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">8.1%</span>
+      <span class="stat-lbl">VAT Rate</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — COUNTRY BACKGROUND
+═══════════════════════════════════════════════════════════ -->
+<section id="country">
+<div class="section">
+  <div class="section-label">Section 01</div>
+  <h2 class="section-title">Switzerland at a Glance</h2>
+  <p class="section-intro">A landlocked, multilingual nation located in the heart of Europe. Switzerland serves as a global hub for finance, pharmaceuticals, precision manufacturing, and diplomacy.</p>
+
+  <div class="img-strip">
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Swiss Alps" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&q=80" alt="Bern old town" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=800&q=80" alt="Lake Geneva" loading="lazy">
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">Demographics & Geography</h3>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Capital</td><td>Bern <span style="color:var(--ink-lt);font-size:0.82rem;">(de facto federal city)</span></td></tr>
+          <tr><td>Population</td><td>~9.05 million (2025)</td></tr>
+          <tr><td>Population Growth</td><td>1.3% per year</td></tr>
+          <tr><td>Density</td><td>219 people/km²</td></tr>
+          <tr><td>Median Age</td><td>43.2 years</td></tr>
+          <tr><td>Life Expectancy</td><td>84.4 years — among highest globally</td></tr>
+          <tr><td>Area</td><td>41,291 km² (roughly the size of Vancouver Island)</td></tr>
+          <tr><td>Time Zone</td><td>CET (UTC+1) · One national time zone</td></tr>
+          <tr><td>Climate</td><td>Temperate four-season; alpine in the south</td></tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:1.75rem;">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">Official Languages</h3>
+        <div class="card-grid" style="grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div class="card" style="padding:1rem;border-top:2px solid var(--red);">
+            <strong style="font-size:0.95rem;">German</strong>
+            <p style="font-size:0.78rem;margin-top:0.3rem;color:var(--ink-lt);">~63% of population · Northern/central regions</p>
+          </div>
+          <div class="card" style="padding:1rem;border-top:2px solid var(--red);">
+            <strong style="font-size:0.95rem;">French</strong>
+            <p style="font-size:0.78rem;margin-top:0.3rem;color:var(--ink-lt);">~23% · Western Switzerland (Romandy)</p>
+          </div>
+          <div class="card" style="padding:1rem;border-top:2px solid var(--gold);">
+            <strong style="font-size:0.95rem;">Italian</strong>
+            <p style="font-size:0.78rem;margin-top:0.3rem;color:var(--ink-lt);">~8% · Ticino region (south)</p>
+          </div>
+          <div class="card" style="padding:1rem;border-top:2px solid var(--gold);">
+            <strong style="font-size:0.95rem;">Romansh</strong>
+            <p style="font-size:0.78rem;margin-top:0.3rem;color:var(--ink-lt);">~1% · Graubünden canton</p>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top:1.25rem;padding:1.25rem 1.5rem;">
+          <h4>⚠️ Business Implication — Four Languages</h4>
+          <p>Foreign firms must account for language when marketing, labelling products, or hiring staff. A marketing campaign effective in Zurich (German) may need complete reworking for Geneva (French). Multilingual packaging and communications are not optional. They are legally required in many sectors.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:1.25rem;">Education & Human Development</h3>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Literacy Rate</td><td>~100% (effectively universal)</td></tr>
+          <tr><td>Upper Secondary Completion</td><td>90.1%</td></tr>
+          <tr><td>HDI Score</td><td>0.967 — <strong style="color:var(--red);">#1 in the world</strong> (2022, UNDP)</td></tr>
+          <tr><td>World-Class Universities</td><td>ETH Zurich (engineering/science), EPFL Lausanne, University of Zurich — all rank globally top 20–50</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pull-quote" style="margin-top:1.75rem;">
+        <p>"Switzerland ranks first in the world on the Human Development Index, reflecting exceptional healthcare, education, and per-capita income."</p>
+        <cite>— UNDP Human Development Report, 2022</cite>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin:1.75rem 0 1.1rem;">Key Industries</h3>
+      <table class="data-table">
+        <thead><tr><th>Sector</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Primary</td><td>Agriculture, dairy, alpine farming</td></tr>
+          <tr><td>Secondary</td><td>Precision watchmaking, manufacturing</td></tr>
+          <tr><td>Tertiary</td><td>Finance, banking, insurance, tourism</td></tr>
+          <tr><td>Quaternary</td><td>Pharmaceutical R&D, biotech, data sciences</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin:1.75rem 0 1.1rem;">Currency & Time</h3>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Currency</td><td>Swiss Franc (CHF). A global "hard currency," consistently stronger than the USD and EUR</td></tr>
+          <tr><td>CHF vs. USD</td><td>CHF trends stronger; ~1.05–1.15 CHF per USD (historically). Strong and stable, with a low currency risk.</td></tr>
+          <tr><td>Sales Tax (VAT)</td><td><strong>8.1%</strong> standard rate (raised from 7.7% in January 2024). Reduced rates: 2.6% (essentials), 3.8% (accommodation). Well below EU average of ~21%.</td></tr>
+          <tr><td>Time vs. Eastern Canada</td><td>CET = EST + 6 hours. If it's 9 AM Monday in Ontario, it's 3 PM Monday in Bern. Some real-time collaboration is possible if the Swiss partner stays slightly late.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:1.25rem;">Fast Facts</h3>
+  <div class="card-grid">
+    <div class="card accent-red">
+      <span class="card-icon">🏔️</span>
+      <h3>Landlocked Alpine Nation</h3>
+      <p>Despite having no sea access, Switzerland is one of the world's most active trading nations. The Alps cover roughly 60% of the country's terrain.</p>
+    </div>
+    <div class="card accent-red">
+      <span class="card-icon">🕊️</span>
+      <h3>Historically Neutral</h3>
+      <p>Switzerland was neutral in both World Wars and has been officially neutral since 1815. It joined the United Nations only in 2002. This neutrality makes it a trusted global mediator and financial custodian.</p>
+    </div>
+    <div class="card accent-gold">
+      <span class="card-icon">🏞️</span>
+      <h3>Over 1,500 Lakes</h3>
+      <p>Switzerland is home to more than 1,500 lakes, including Lake Geneva and Lake Constance. They have iconic landscapes that also support tourism, a major economic sector.</p>
+    </div>
+    <div class="card accent-gold">
+      <span class="card-icon">🤝</span>
+      <h3>Global Diplomacy Hub</h3>
+      <p>Geneva hosts the UN European headquarters, the Red Cross, the WHO, and hundreds of international NGOs. This drives demand for high-end professional services which is a niche opportunity for Canadian firms.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — ECONOMY, POLITICS & TRADE
+═══════════════════════════════════════════════════════════ -->
+<section id="economy">
+<div class="section alt-bg" style="padding:5rem 0;">
+<div class="section-inner">
+  <div class="section-label">Section 02</div>
+  <h2 class="section-title">Economy, Politics & Trade</h2>
+  <p class="section-intro">Switzerland is one of the world's most competitive economies; not because of natural resources, but through institutional excellence, political stability, and a strong focus on high-value industries.</p>
+
+  <!-- Tabs for Economy sub-sections -->
+  <div class="tab-bar" id="econ-tabs">
+    <button class="tab-btn active" onclick="switchTab('econ-tabs','econ-overview',this)">Economic Overview</button>
+    <button class="tab-btn" onclick="switchTab('econ-tabs','econ-political',this)">Political System</button>
+    <button class="tab-btn" onclick="switchTab('econ-tabs','econ-comparative',this)">Comparative Advantage</button>
+    <button class="tab-btn" onclick="switchTab('econ-tabs','econ-tradestats',this)">Trade Statistics</button>
+    <button class="tab-btn" onclick="switchTab('econ-tabs','econ-agreements',this)">Trade Agreements</button>
+  </div>
+
+  <!-- TAB: Economic Overview -->
+  <div class="tab-content active" id="econ-overview">
+    <div class="two-col">
+      <div>
+        <table class="data-table">
+          <thead><tr><th>Indicator</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>GDP (Nominal)</td><td>~$1.06 trillion USD (2025) <a class="src-link" href="https://en.wikipedia.org/wiki/Economy_of_Switzerland" target="_blank">[source]</a></td></tr>
+            <tr><td>GDP per Capita</td><td>~$103,998 USD (2024) — 2nd highest globally</td></tr>
+            <tr><td>GDP Growth Rate</td><td>1.3% (2024–2026 est.)</td></tr>
+            <tr><td>Unemployment</td><td>4.9% (2025, modeled ILO)</td></tr>
+            <tr><td>Inflation (CPI)</td><td>0.6–1.1% — remarkably low</td></tr>
+            <tr><td>Business Cycle Stage</td><td>Steady expansion; resilient post-COVID recovery</td></tr>
+            <tr><td>Economic System</td><td>Mixed economy with a strong private and effective government</td></tr>
+            <tr><td>Gini Coefficient</td><td>31.1 — relatively low inequality</td></tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box" style="margin-top:1.5rem;">
+          <h4>💡 Business Implication — Low Inflation</h4>
+          <p>Switzerland's near-zero inflation signals price stability. This is a major advantage for long-term contract pricing, budgeting, and financial forecasting. Canadian exporters don't need to build large inflation hedges into agreements, unlike many other international markets.</p>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:1rem;">Government Spending</h4>
+        <ul class="info-list">
+          <li>Universal healthcare system. The government funds health infrastructure; foreign workers are included</li>
+          <li>World-class public education from primary through university; heavily subsidized post-secondary</li>
+          <li>Major investment in public transportation, extensive rail and highway network</li>
+          <li>Social safety nets including unemployment insurance, pension (AHV), and disability support</li>
+          <li>Strong research & innovation grants. Switzerland consistently ranks in the top 3 globally for innovation (Global Innovation Index)</li>
+        </ul>
+
+        <div class="pull-quote" style="margin-top:1.75rem;">
+          <p>"Switzerland's economic model proves that low regulation, low taxation, and high social spending can co-exist — making it a benchmark economy for developed nations worldwide."</p>
+          <cite>— OECD Economic Survey of Switzerland</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Political System -->
+  <div class="tab-content" id="econ-political">
+    <div class="two-col">
+      <div>
+        <table class="data-table">
+          <thead><tr><th>Factor</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>System</td><td>Federal Republic. A democracy with 26 sovereign cantons</td></tr>
+            <tr><td>Legislature</td><td>Federal Assembly: National Council (200 seats) + Council of States (46 seats)</td></tr>
+            <tr><td>Executive</td><td>Federal Council with 7-member collegial body (no single prime minister)</td></tr>
+            <tr><td>2026 President</td><td>Guy Parmelin <span class="badge">Rotating annually</span></td></tr>
+            <tr><td>Direct Democracy</td><td>Citizens vote on federal laws via referendums 4 times per year</td></tr>
+            <tr><td>Political Risk</td><td><strong style="color:#2E7D32;">Very Low.</strong> No significant risk of civil unrest or sudden government change</td></tr>
+            <tr><td>Corruption Index</td><td>82/100. 7th least corrupt country globally (Transparency International 2023)</td></tr>
+            <tr><td>EU Membership</td><td>Not a member. They negotiate bilateral agreements independently</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="highlight-box">
+          <h4>🏛️ What Direct Democracy Means for Business</h4>
+          <p>Unlike most countries where a single government can rapidly change policy, Switzerland's referendum system means major regulatory shifts happen slowly and with broad public consensus. This is excellent for long-term investors because your operating environment is far more predictable than in most countries, including Canada.</p>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <div class="insight">Business Climate Note</div>
+          <p style="font-size:0.9rem;color:var(--ink-mid);line-height:1.7;margin-top:0.5rem;">Switzerland's 26 cantons each have their own tax rates and regulations. <strong>choosing where to incorporate matters significantly</strong>. Cantons like Zug and Schwyz are known for particularly low corporate taxes (~11–12%), attracting international holding companies and headquarters.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Comparative Advantage -->
+  <div class="tab-content" id="econ-comparative">
+    <p style="font-size:0.95rem;color:var(--ink-mid);line-height:1.7;margin-bottom:2rem;">Comparative advantage refers to a country's ability to produce goods or services at a lower opportunity cost than others. Switzerland has built extraordinary specialization in several high-value fields.</p>
+    <div class="card-grid">
+      <div class="card accent-red">
+        <span class="card-icon">💊</span>
+        <h3>Pharmaceuticals <span class="badge">52% of exports</span></h3>
+        <p>Switzerland's single greatest comparative advantage. Companies like Novartis, Roche, and Lonza are headquartered here. Pharma and chemicals account for over half of all Swiss exports by value. Swiss regulatory standards and R&D infrastructure are globally respected.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Canada imports Swiss pharmaceutical products. Entering the Swiss pharma space requires meeting extremely high compliance standards (Swissmedic approval process).</p>
+      </div>
+      <div class="card accent-red">
+        <span class="card-icon">🏦</span>
+        <h3>Banking & Financial Services</h3>
+        <p>UBS and Credit Suisse (now merged) were global institutions. Swiss banks manage an estimated 25–30% of all global offshore private wealth which is more than any other country. Geneva is the world's largest centre for private wealth management.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Financial services firms can leverage Swiss funds and wealth management partnerships. High compliance requirements apply.</p>
+      </div>
+      <div class="card accent-gold">
+        <span class="card-icon">⌚</span>
+        <h3>Precision Watchmaking</h3>
+        <p>The Swiss watch industry (Rolex, Omega, Swatch, Patek Philippe) exports ~$27 billion CAD annually. Swiss watches hold unparalleled brand prestige. "Swiss Made" is a legally protected designation under strict domestic law.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Luxury goods importers/distributors benefit. Switzerland is a reliable premium-quality source.</p>
+      </div>
+      <div class="card accent-gold">
+        <span class="card-icon">🔬</span>
+        <h3>Biotech & Medical Devices</h3>
+        <p>Switzerland produces cutting-edge diagnostics and surgical equipment (Straumann, Medtech). The country invests ~3.4% of GDP in R&D — among the highest in the world — producing an outsized share of global medical patents.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Partnerships with Swiss biotech firms can fast-track clinical development pipelines into European markets.</p>
+      </div>
+      <div class="card accent-ink">
+        <span class="card-icon">🍫</span>
+        <h3>Agri-Food (Chocolate & Dairy)</h3>
+        <p>Swiss chocolate (Lindt, Nestlé, Toblerone) is a globally recognized premium export. Despite being a small country, Switzerland exports significant dairy with high standards.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Canadian food exporters face strict Swiss foodstuffs laws (Article 12 — country of origin + ingredients mandatory on packaging).</p>
+      </div>
+      <div class="card accent-ink">
+        <span class="card-icon">🏭</span>
+        <h3>Precision Engineering & Machinery</h3>
+        <p>Swiss-made industrial machinery and instruments (ABB, Schindler, Georg Fischer) serve global markets. "Swiss engineering" is a brand in itself that is associated with reliability and innovation.</p>
+        <p style="margin-top:0.75rem;font-size:0.83rem;color:var(--ink-lt);">Canadian Implication: Resource and manufacturing sectors can source high-quality capital equipment from Swiss suppliers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Trade Statistics -->
+  <div class="tab-content" id="econ-tradestats">
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1.1rem;">Merchandise Trade (Annual)</h4>
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>Value (USD)</th></tr></thead>
+          <tbody>
+            <tr><td>Total Exports</td><td>$361 Billion</td></tr>
+            <tr><td>Total Imports</td><td>$293 Billion</td></tr>
+            <tr><td>Trade Balance</td><td><strong style="color:#2E7D32;">+$68 Billion Surplus ✓</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="trade-bar-wrap" style="margin-top:1.5rem;">
+          <div class="trade-bar-label">Exports ($361B)</div>
+          <div class="trade-bar-outer"><div class="trade-bar-inner" style="width:100%;"></div></div>
+          <div class="trade-bar-val">$361B</div>
+        </div>
+        <div class="trade-bar-wrap">
+          <div class="trade-bar-label">Imports ($293B)</div>
+          <div class="trade-bar-outer"><div class="trade-bar-inner" style="width:81%;background:var(--gold);"></div></div>
+          <div class="trade-bar-val">$293B</div>
+        </div>
+
+        <div class="highlight-box" style="margin-top:1.25rem;">
+          <h4>📊 Business Implication — Trade Surplus</h4>
+          <p>A consistent $68B trade surplus signals that Switzerland produces more than it consumes. This is driven by high-value pharmaceutical and chemical exports. Canadian businesses exporting goods to Switzerland should expect competitive domestic alternatives. Being high quality is essential.</p>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1.1rem;">Top Exports & Imports</h4>
+        <table class="data-table">
+          <thead><tr><th>Rank</th><th>Top Exports</th><th>Top Imports</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Gems & Precious Metals</td><td>Gems & Precious Metals</td></tr>
+            <tr><td>2</td><td>Pharmaceutical Products <span class="badge gold">52%</span></td><td>Pharmaceutical Products</td></tr>
+            <tr><td>3</td><td>Organic Chemicals</td><td>Machinery & Computers</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin:1.75rem 0 1rem;">Top Trading Partners</h4>
+        <table class="data-table">
+          <thead><tr><th>Partner</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>🇩🇪 Germany</td><td>Largest trading partner (~15–20% of trade)</td></tr>
+            <tr><td>🇺🇸 United States</td><td>Key market for pharma exports; currently imposing tariffs</td></tr>
+            <tr><td>🇨🇳 China</td><td>Growing partnership; EFTA–China FTA in force since 2014</td></tr>
+            <tr><td>🇬🇧 United Kingdom</td><td>Bilateral EFTA–UK agreement</td></tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:1.5rem;">
+          <div class="insight">Current Trade Dispute</div>
+          <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.7;margin-top:0.5rem;">Since 2025 under the Trump administration, the U.S. placed a <strong>25% tariff on Swiss steel</strong> and up to <strong>50% on aluminum</strong>. A blanket additional tariff of ~10% was also applied. Switzerland has challenged these measures at the <a class="src-link" href="https://www.wto.org" target="_blank">WTO</a>, but negotiations remain ongoing. <strong>Implication for Canadian firms:</strong> Switzerland may seek alternative trading partners which leaves an opening for Canadian industrial exporters.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Trade Agreements -->
+  <div class="tab-content" id="econ-agreements">
+    <p style="font-size:0.95rem;color:var(--ink-mid);line-height:1.7;margin-bottom:2rem;">Switzerland is not a member of the EU but is one of the world's most connected countries through a dense web of bilateral and multilateral trade agreements via EFTA.</p>
+
+    <div class="highlight-box" style="margin-bottom:2rem;">
+      <h4>🌐 What is EFTA?</h4>
+      <p>The European Free Trade Association (EFTA) consists of Switzerland, Norway, Iceland, and Liechtenstein. EFTA negotiates trade agreements collectively, giving Switzerland access to preferential trade terms globally without sacrificing national sovereignty or joining the EU. Nearly all of Switzerland's major trade deals are conducted jointly through EFTA.</p>
+    </div>
+
+    <div class="agreement-card">
+      <h4>🇨🇦 EFTA–Canada Free Trade Agreement (CETA equivalent)</h4>
+      <p>Canada and the four EFTA countries have a free trade agreement in force, reducing tariffs on goods and improving market access for services. <strong>Direct implication:</strong> Canadian firms can access the Swiss market with reduced trade barriers. This is a great opportunity for Canadian businesses.</p>
+      <p style="margin-top:0.6rem;"><a class="src-link" href="https://www.efta.int/free-trade/free-trade-agreements/canada" target="_blank">View agreement details →</a></p>
+    </div>
+
+    <div class="agreement-card">
+      <h4>🇬🇧 EFTA–United Kingdom Free Trade Agreement</h4>
+      <p>This agreement maintains preferential trade between Switzerland and the UK. For Canadian businesses operating across British and Swiss markets, this creates a triangular opportunity through the Canada–UK CETA relationship.</p>
+    </div>
+
+    <div class="agreement-card">
+      <h4>🇰🇷 EFTA–South Korea Free Trade Agreement</h4>
+      <p>In force since 2006. This agreement reduces tariffs on industrial goods, pharmaceuticals, and seafood which expands Swiss market reach into Asia and providing Canadian investors in Switzerland with a platform to supply the Korean market.</p>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1rem;">International Organization Memberships</h4>
+      <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;">
+        <div class="card" style="padding:1rem;text-align:center;border-top:2px solid var(--red);">
+          <strong>WTO</strong><p style="font-size:0.78rem;margin-top:0.3rem;">World Trade Organization</p>
+        </div>
+        <div class="card" style="padding:1rem;text-align:center;border-top:2px solid var(--red);">
+          <strong>World Bank</strong><p style="font-size:0.78rem;margin-top:0.3rem;">Development finance</p>
+        </div>
+        <div class="card" style="padding:1rem;text-align:center;border-top:2px solid var(--red);">
+          <strong>IMF</strong><p style="font-size:0.78rem;margin-top:0.3rem;">International Monetary Fund</p>
+        </div>
+        <div class="card" style="padding:1rem;text-align:center;border-top:2px solid var(--gold);">
+          <strong>EFTA</strong><p style="font-size:0.78rem;margin-top:0.3rem;">Core trade bloc membership</p>
+        </div>
+        <div class="card" style="padding:1rem;text-align:center;border-top:2px solid var(--ink);">
+          <strong>OECD</strong><p style="font-size:0.78rem;margin-top:0.3rem;">Economic cooperation & development</p>
+        </div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--ink-lt);margin-top:0.75rem;"><em>Note: Switzerland is not a member of NATO or APEC, in keeping with its policy of political neutrality.</em></p>
+    </div>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — DOING BUSINESS
+═══════════════════════════════════════════════════════════ -->
+<section id="business">
+<div class="section">
+  <div class="section-label">Section 03</div>
+  <h2 class="section-title">Doing Business in Switzerland</h2>
+  <p class="section-intro">Success in the Swiss market goes beyond having a good product. It requires meticulous preparation, an understanding of local protocols, and respect for a culture that values precision and punctuality above all.</p>
+
+  <div class="tab-bar" id="biz-tabs">
+    <button class="tab-btn active" onclick="switchTab('biz-tabs','biz-etiquette',this)">Meeting Etiquette</button>
+    <button class="tab-btn" onclick="switchTab('biz-tabs','biz-negotiation',this)">Negotiation Style</button>
+    <button class="tab-btn" onclick="switchTab('biz-tabs','biz-employee',this)">Employee Culture</button>
+    <button class="tab-btn" onclick="switchTab('biz-tabs','biz-marketing',this)">Marketing Laws</button>
+  </div>
+
+  <!-- TAB: Meeting Etiquette -->
+  <div class="tab-content active" id="biz-etiquette">
+    <div class="do-dont">
+      <div class="do-box">
+        <h4>✓ Do</h4>
+        <ul>
+          <li>Arrive <strong>at least 5 minutes early.</strong> Punctuality is a professional standard in Switzerland</li>
+          <li>Address people as <strong>Mr./Mrs. + Last Name</strong> unless they explicitly invite first-name terms</li>
+          <li>Maintain firm, <strong>direct eye contact</strong> as it signals engagement and trustworthiness</li>
+          <li>Dress in <strong>formal business attire.</strong> Suits and ties for men, professional dress for women</li>
+          <li>Come <strong>fully prepared</strong> with data, statistics, and clearly stated objectives; They expect precision</li>
+          <li>Respect personal space (~1 metre distance with strangers). Very similar to Canadian norms</li>
+          <li>If giving a gift, keep it <strong>modest and non-flashy</strong> </li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h4>✗ Don't</h4>
+        <ul>
+          <li>Never arrive late. Being even 5 minutes late without notice is seen as disrespectful and signals unreliability</li>
+          <li>Don't lead with excessive small talk or personal questions. Swiss business culture is direct and professional from the start</li>
+          <li>Don't bring flashy or overly expensive gifts as it may be seen as an attempt to influence or bribe</li>
+          <li>Avoid crossing legs or adopting very casual posture in meetings. Formality is expected throughout</li>
+          <li>Don't expect a decision in the first meeting. Swiss negotiations span multiple sessions</li>
+          <li>Never use first names until the Swiss counterpart explicitly offers to do so</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-grid" style="margin-top:2rem;">
+      <div class="card accent-red">
+        <span class="card-icon">⏰</span>
+        <h3>Monochronic Culture</h3>
+        <p>Switzerland is a textbook monochronic culture. They focus on one task at a time with strict scheduling, and respect for others' time. A meeting scheduled for 60 minutes will be 60 minutes.</p>
+      </div>
+      <div class="card accent-red">
+        <span class="card-icon">👔</span>
+        <h3>Formal Dress Code</h3>
+        <p>Conservative business attire is the norm. Men typically wear a suit and tie; women wear professional business dress. There are no significant colour taboos, but avoid anything that could be seen as tacky.</p>
+      </div>
+      <div class="card accent-gold">
+        <span class="card-icon">🤝</span>
+        <h3>Handshakes & Greetings</h3>
+        <p>A firm handshake with each individual in the room when arriving and departing is standard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Negotiation Style -->
+  <div class="tab-content" id="biz-negotiation">
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1rem;">How Swiss Business Negotiations Work</h4>
+        <ul class="info-list">
+          <li><strong>Detail-Oriented:</strong> Swiss negotiators want hard data, precise statistics, and accurate projections — not general talking points. Bring your most specific and well-sourced numbers.</li>
+          <li><strong>Multi-Meeting Process:</strong> Expect negotiations to span several meetings over weeks or months. Patience is crucial. Attempting to rush a decision signals disrespect.</li>
+          <li><strong>Direct Communication:</strong> Unlike many cultures where indirect hints are the norm, Swiss professionals prefer to get to the point. They will state their position clearly and expect the same from you.</li>
+          <li><strong>Consensus-Driven:</strong> Swiss organizations tend toward collaborative decision-making. They may need to consult colleagues or superiors and build relationships across a team, not just one person.</li>
+          <li><strong>No Aggressive Tactics:</strong> Hard-sell pressure tactics backfire. Swiss negotiators disengage when they feel rushed or manipulated.</li>
+          <li><strong>Written Proposals:</strong> Always follow up verbal discussions with a formal written summary or proposal. Swiss business culture values documentation and precision.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="highlight-box">
+          <h4>🎯 Strategic Takeaway for Canadian Firms</h4>
+          <p>The Swiss negotiation model rewards preparation over charisma. A Canadian company that arrives with verified data, realistic timelines, and structured proposals will be taken seriously. A company that overley focus on emotional appeals as a substitute for precision will be passed over.</p>
+        </div>
+        <div class="pull-quote" style="margin-top:1.5rem;">
+          <p>"Establish clear demands before the meeting to avoid wasting time. Swiss counterparts will interpret vagueness as unpreparedness."</p>
+          <cite>— Cross-cultural Business Protocol, Switzerland</cite>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <div class="insight">Money Talk Timing</div>
+          <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.7;margin-top:0.5rem;">Swiss professionals are comfortable discussing financial terms relatively early in the process, provided you have done your homework. Being prepared to discuss numbers in the first or second meeting is expected.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Employee Culture -->
+  <div class="tab-content" id="biz-employee">
+    <div class="two-col">
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1rem;">Workplace Norms</h4>
+        <table class="data-table">
+          <tbody>
+            <tr><td>Max Working Hours</td><td>45 hours/week (legal maximum for industrial/office workers)</td></tr>
+            <tr><td>Lunch Break</td><td>Typically 1 hour, mid-day</td></tr>
+            <tr><td>Minimum Vacation</td><td>4 weeks per year (legally mandated)</td></tr>
+            <tr><td>After-Hours Culture</td><td>Work-life balance is strongly valued. Do not expect replies to emails outside office hours</td></tr>
+            <tr><td>Work Style</td><td>Team-oriented with collaborative decision-making; individual accountability still high</td></tr>
+            <tr><td>Average Monthly Salary</td><td>~CHF 8,286 gross / ~CHF 6,798 net (approx. $12,500–$14,000 CAD)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box" style="margin-top:1.5rem;">
+          <h4>💼 Implication for Canadian Employers</h4>
+          <p>Labour costs in Switzerland are significantly higher than in Canada. Any Canadian business establishing a Swiss subsidiary must budget for high wages, generous vacation entitlements, and mandatory social contributions (AHV/pension). However, the highly educated workforce delivers exceptional productivity in return.</p>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:1rem;">High Cost of Living — A Business Factor</h4>
+        <ul class="info-list">
+          <li>Switzerland has one of the highest costs of living globally. Housing in cities like Zurich and Geneva is among the world's most expensive</li>
+          <li>Canadian employees relocated to Switzerland must receive significant cost-of-living adjustments to maintain comparable living standards</li>
+          <li>Consumer goods in Switzerland are substantially more expensive than in Canada, which affects employee satisfaction and retention</li>
+          <li>The Swiss consumer base has high purchasing power and are well-positioned for premium-priced Canadian goods or services</li>
+        </ul>
+        <div class="pull-quote" style="margin-top:1.5rem;">
+          <p>"When your workers are in the office, high efficiency is expected. Outside of office hours, they expect an equally complete separation."</p>
+          <cite>— Swiss Business Culture Overview</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Marketing Laws -->
+  <div class="tab-content" id="biz-marketing">
+    <p style="font-size:0.95rem;color:var(--ink-mid);line-height:1.7;margin-bottom:2rem;">Switzerland maintains a robust legal framework governing how businesses market, price, and sell their products. Foreign firms must comply before entering the market.</p>
+
+    <div class="collapsible open">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>📦 Product Law — Foodstuffs Act, Article 12</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-body">
+        <p>All packaged food products sold in Switzerland must display: (a) the country of production, (b) a specific product designation, and (c) a complete ingredient list. This is non-negotiable regardless of where the business is headquartered.</p>
+        <p style="margin-top:0.75rem;"><strong>Canadian Implication:</strong> Canadian food exporters must redesign packaging for the Swiss market. They have stricter standards and labels must appear in the relevant Swiss language(s) for the distribution region (German, French, or Italian).</p>
+        <p style="margin-top:0.75rem;"><a class="src-link" href="https://www.fedlex.admin.ch/eli/cc/2017/62/en" target="_blank">View Federal Foodstuffs Act (fedlex.admin.ch) →</a></p>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>📢 Promotion Law — Federal Act on Unfair Competition, Article 3</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-body">
+        <p>Swiss law prohibits any advertising that is misleading, deceptive, or uses unfair pressure tactics. Businesses cannot exaggerate discounts, make false product claims, or manipulate consumers.</p>
+        <p style="margin-top:0.75rem;"><strong>Canadian Implication:</strong> Every marketing claim must be accurate and verifiable before publication. Claims like "up to 70% off" on items with negligible markdown would violate this law. Canadian companies must review all promotional materials.</p>
+        <p style="margin-top:0.75rem;"><a class="src-link" href="https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/en" target="_blank">View Unfair Competition Act (fedlex.admin.ch) →</a></p>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>🏪 Competition Law — Federal Act on Cartels, Article 5</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-body">
+        <p>Switzerland bans agreements between companies that restrict or eliminate fair competition. This includes price-fixing arrangements, production quotas among competitors, market division, and any agreement that prevents new businesses from competing.</p>
+        <p style="margin-top:0.75rem;"><strong>Canadian Implication:</strong> Canadian firms partnering with Swiss distributors or local companies need to verify that exclusivity arrangements do not constitute market-division agreements under Swiss competition law. Legal counsel is strongly recommended before signing distribution agreements.</p>
+        <p style="margin-top:0.75rem;"><a class="src-link" href="https://www.fedlex.admin.ch/eli/cc/1996/546_546_546/en" target="_blank">View Cartels Act (fedlex.admin.ch) →</a></p>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>💰 Pricing — VAT Compliance</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-body">
+        <p>The standard VAT rate in Switzerland is 8.1% (as of January 2024), with reduced rates of 2.6% for essential goods (food, medicines, books) and 3.8% for accommodation. Foreign companies earning over CHF 100,000 annually from Swiss sales must register for VAT, even without a Swiss office.</p>
+        <p style="margin-top:0.75rem;"><strong>Canadian Implication:</strong> E-commerce sales to Swiss customers trigger VAT obligations the minimun sales. Although the 8.1% rate is significantly below EU averages (often 20–25%), Canadian firms should price Swiss-market products with VAT registered correctly. Failure to register is a compliance violation under Swiss Federal Tax Administration rules.</p>
+        <p style="margin-top:0.75rem;"><a class="src-link" href="https://www.ch.ch/en/taxes-and-finances/types-of-taxation/value-added-tax--vat-/" target="_blank">Swiss VAT Overview (ch.ch) →</a></p>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>🛡️ Privacy & Data Protection</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-body">
+        <p>Switzerland has some of the world's strongest data privacy laws. The revised Federal Act on Data Protection came into force in September 2023 and is comparable to the EU's GDPR. Any business handling Swiss consumer data must comply.</p>
+        <p style="margin-top:0.75rem;"><strong>Canadian Implication:</strong> Canadian firms collecting Swiss customer data (even via a website) must follow these privacy standards. Data must be stored securely, user consent obtained properly, and breach notifications made promptly. Swiss consumers take privacy very seriously.</p>
+        <p style="margin-top:0.75rem;"><a class="src-link" href="https://www.edoeb.admin.ch/en" target="_blank">Federal Data Protection Commissioner →</a></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — ETHICAL & SOCIAL CONSIDERATIONS
+═══════════════════════════════════════════════════════════ -->
+<section id="ethics">
+<div class="section alt-bg" style="padding:5rem 0;">
+<div class="section-inner">
+  <div class="section-label">Section 04</div>
+  <h2 class="section-title">Ethical & Social Considerations</h2>
+  <p class="section-intro">Switzerland's reputation as a stable, trustworthy nation is largely deserved, but they still have some complexities. These are the most relevant ethical factors for Canadian businesses.</p>
+
+  <div class="card-grid">
+    <div class="card accent-red">
+      <span class="card-icon">🔒</span>
+      <h3>Banking Privacy & International Scrutiny</h3>
+      <p>Switzerland was historically synonymous with "secret bank accounts." While the legendary level of bank secrecy has been significantly reduced under international pressure from the U.S. and EU, strong financial privacy protections remain in place.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">Switzerland now participates in international automatic information-sharing agreements (AEOI) and will provide banking records under legal order. Canadian firms should be transparent about financial structures and not rely on Swiss banking secrecy as way to avoid tax.</p>
+    </div>
+    <div class="card accent-red">
+      <span class="card-icon">🌿</span>
+      <h3>Environmental Standards</h3>
+      <p>Switzerland has some of Europe's most best environmental regulations with recycling programs, strict emissions controls, and renewable energy investments. The country scores 3rd globally on the Environmental Performance Index.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">Canadian firms importing goods or operating facilities in Switzerland must meet high environmental standards. This creates costs but also bennifits reputations and Swiss consumers reward sustainable business practices.</p>
+    </div>
+    <div class="card accent-gold">
+      <span class="card-icon">💸</span>
+      <h3>High Cost of Living</h3>
+      <p>Switzerland is one of the most expensive countries in the world. Housing, food, transportation, and services are significantly more costly than in Canada. This affects overall business operating costs.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">For Canadian brands, the high cost of living is also an opportunity. Swiss consumers are used to paying premium prices and are willing to do so for quality. Sell a premium product, not discount items.</p>
+    </div>
+    <div class="card accent-gold">
+      <span class="card-icon">⚖️</span>
+      <h3>Labour Protections</h3>
+      <p>Swiss labour law is comprehensive with maximum working hours, mandatory vacation, social insurance contributions (AHV/IV/ALV). They also have strict health and safety rules that apply to all employers, including foreign businesses with Swiss operations.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">Following these laws signal to Swiss workers that your firm takes employment seriously whcih is essential for attracting top-tier talent in a highly competitive labour market.</p>
+    </div>
+    <div class="card accent-ink">
+      <span class="card-icon">🤲</span>
+      <h3>Low Corruption</h3>
+      <p>Switzerland ranks 7th globally on Transparency International's Corruption Perceptions Index with a score of 82/100. Bribery and kickbacks are rare and actively prosecuted under Swiss and international law.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">Canadian businesses operating in Switzerland should not expect or engage in informal payments or "facilitation fees." The legal and reputational risk is severe. The Swiss regulatory processes is thorough, transparent, and fair.</p>
+    </div>
+    <div class="card accent-ink">
+      <span class="card-icon">🌐</span>
+      <h3>Geopolitical Neutrality</h3>
+      <p>Switzerland's neutrality is both an asset and a constraint. It is not a NATO member but still maintains diplomatic relations with almost every country. This makes Switzerland a stable operational base regardless of political affiliations.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--ink-lt);">For Canadian firms with operations in politically sensitive industries, Switzerland's neutrality can provide a safe, legally predictable headquarters.</p>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <div class="pull-quote">
+    <p>"A domestic company doing business in Switzerland must follow strict privacy and data protection laws. Complying increases legal costs, but respecting Switzerland's high privacy standards improves the company's reputation by demonstrating that customer data is secure."</p>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — ABOUT THE AUTHOR
+═══════════════════════════════════════════════════════════ -->
+<section id="author">
+<div class="section">
+  <div class="section-label">Section 05</div>
+  <h2 class="section-title">About the Author</h2>
+
+  <div class="author-section">
+    <div class="author-avatar">CW</div>
+    <div class="author-info">
+      <h3>Cooper Waite</h3>
+      <div class="author-meta">Grade 11 Student · KDSS · BBB4M — International Business Fundamentals</div>
+      <p>This trade report was produced as my culminating project for BBB4M. It uses research I conducted throughout the seven jobs on Switzerland as a business environment. It also uses knowledge of concepts I learned throughout the course such as demographics, trade, culture, ethics, economics, trade agreements, and marketing law.</p>
+      <p style="margin-top:0.75rem;">The report is intended to inform Canadian business and government leaders about Switzerland as a destination for trade, investment, and expansion. It presents both the significant opportunities and the challenges of entering one of the world's most rewarding markets.</p>
+      <div style="margin-top:1.25rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <div style="background:var(--cream);border-radius:6px;padding:0.75rem 1.1rem;font-size:0.83rem;">
+          <strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-lt);display:block;margin-bottom:0.2rem;">School</strong>
+          KDSS
+        </div>
+        <div style="background:var(--cream);border-radius:6px;padding:0.75rem 1.1rem;font-size:0.83rem;">
+          <strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-lt);display:block;margin-bottom:0.2rem;">Course</strong>
+          BBB4M — International Business
+        </div>
+        <div style="background:var(--cream);border-radius:6px;padding:0.75rem 1.1rem;font-size:0.83rem;">
+          <strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-lt);display:block;margin-bottom:0.2rem;">Country Researched</strong>
+          Switzerland 🇨🇭
+        </div>
+        <div style="background:var(--cream);border-radius:6px;padding:0.75rem 1.1rem;font-size:0.83rem;">
+          <strong style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-lt);display:block;margin-bottom:0.2rem;">Year</strong>
+          2026
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SOURCES
+═══════════════════════════════════════════════════════════ -->
+<div class="sources-panel">
+  <div class="section-inner">
+    <h2>📚 Sources & References</h2>
+    <div class="sources-grid">
+
+      <div class="source-item">
+        <span class="src-cat">Demographics</span>
+        <a href="https://www.worldometers.info/world-population/switzerland-population/" target="_blank">Worldometers — Switzerland Population Data</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Economics / GDP</span>
+        <a href="https://en.wikipedia.org/wiki/Economy_of_Switzerland" target="_blank">Wikipedia — Economy of Switzerland (with IMF/World Bank citations)</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Economics / GDP per Capita</span>
+        <a href="https://datacommons.org/place/country/CHE" target="_blank">Data Commons — Switzerland Country Statistics</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Human Development Index</span>
+        <a href="https://worldpopulationreview.com/country-rankings/hdi-by-country" target="_blank">World Population Review — HDI by Country 2026</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Trade / Exports</span>
+        <a href="https://www.worldstopexports.com/switzerlands-top-10-exports/" target="_blank">World's Top Exports — Switzerland Top 10 Exports</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Trade / Imports</span>
+        <a href="https://www.worldstopexports.com/switzerlands-top-10-imports/" target="_blank">World's Top Exports — Switzerland Top 10 Imports</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Trade Statistics (Federal)</span>
+        <a href="https://www.bazg.admin.ch/en/foreign-trade-statistics" target="_blank">Swiss Federal Customs Administration — Foreign Trade Statistics</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Tariffs / Trade Dispute</span>
+        <a href="https://www.bluewin.ch/en/news/international/usa-threatens-switzerland-with-new-punitive-tariffs-of-125-percent-3262147.html" target="_blank">Bluewin — U.S. Tariff Threats Against Switzerland</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Inflation</span>
+        <a href="https://tradingeconomics.com/switzerland/inflation-cpi" target="_blank">Trading Economics — Switzerland CPI Inflation</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Unemployment</span>
+        <a href="https://data.worldbank.org/country/switzerland" target="_blank">World Bank — Switzerland Country Data</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Pharmaceuticals</span>
+        <a href="https://www.scienceindustries.ch/en/article/49475/chemical-and-pharmaceutical-industries-remain-the-backbone/" target="_blank">scienceindustries.ch — Pharma Industry Switzerland</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">VAT / Tax</span>
+        <a href="https://www.ch.ch/en/taxes-and-finances/types-of-taxation/value-added-tax--vat-/" target="_blank">ch.ch — Swiss VAT Explained</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">VAT Rate Change 2024</span>
+        <a href="https://kpmg.com/ch/en/insights/taxes/swiss-vat-rates-e-filing-portal.html" target="_blank">KPMG — Swiss VAT Rate Increase to 8.1% (2024)</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Business Culture</span>
+        <a href="https://captainluxe.com/blog/cultural-nuances-of-negotiating-in-swiss-business-essential-tips-for-success/" target="_blank">CaptainLuxe — Swiss Business Negotiation Culture</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Personal Space</span>
+        <a href="https://worldpopulationreview.com/country-rankings/personal-space-by-country" target="_blank">World Population Review — Personal Space by Country</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Data Privacy</span>
+        <a href="https://www.edoeb.admin.ch/en" target="_blank">Federal Data Protection Commissioner (EDÖB)</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">OECD / Tax Transparency</span>
+        <a href="https://www.oecd.org/en/networks/global-forum-tax-transparency.html" target="_blank">OECD — Global Forum on Tax Transparency</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Cost of Living</span>
+        <a href="https://www.focusswiss.com/en/cost-of-living-in-switzerland-2025/" target="_blank">FocusSwiss — Cost of Living in Switzerland 2025</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Marketing Law — Product</span>
+        <a href="https://www.fedlex.admin.ch/eli/cc/2017/62/en" target="_blank">Fedlex — Swiss Foodstuffs Act (Packaging Requirements)</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Marketing Law — Promotion</span>
+        <a href="https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/en" target="_blank">Fedlex — Federal Act on Unfair Competition</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Marketing Law — Competition</span>
+        <a href="https://www.fedlex.admin.ch/eli/cc/1996/546_546_546/en" target="_blank">Fedlex — Federal Act on Cartels (Competition Law)</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">EFTA Agreements</span>
+        <a href="https://www.efta.int/free-trade/free-trade-agreements/canada" target="_blank">EFTA — EFTA–Canada Free Trade Agreement</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Trading Partners</span>
+        <a href="https://www.worldstopexports.com/switzerlands-top-import-partners/" target="_blank">World's Top Exports — Switzerland Import Partners</a>
+      </div>
+      <div class="source-item">
+        <span class="src-cat">Environmental Performance</span>
+        <a href="https://epi.yale.edu/node/37387" target="_blank">Yale EPI 2024 — Switzerland Environmental Performance Index</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <p>The Ledger — Switzerland Trade Intelligence Report &nbsp;·&nbsp; Cooper Waite &nbsp;·&nbsp; KDSS BBB4M &nbsp;·&nbsp; 2026</p>
+  <p style="margin-top:0.4rem;">Images: <a href="https://unsplash.com" target="_blank" style="color:rgba(255,255,255,0.35);text-decoration:none;">Unsplash</a> &nbsp;·&nbsp; Built for educational purposes &nbsp;·&nbsp; Made in Canada</p>
+</footer>
+
+<!-- ── JAVASCRIPT ──────────────────────────────────────────── -->
+<script>
+  // Tab switching
+  function switchTab(tabBarId, targetId, btn) {
+    const bar = document.getElementById(tabBarId);
+    const section = bar.nextElementSibling;
+    // deactivate all tabs in bar
+    bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // find parent section for tab contents
+    let parent = bar.parentElement;
+    parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    const target = document.getElementById(targetId);
+    if (target) target.classList.add('active');
+  }
+
+  // Collapsible
+  function toggleCollapsible(header) {
+    const col = header.parentElement;
+    col.classList.toggle('open');
+  }
+
+  // Scrollspy for nav
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section[id]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll for nav
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
